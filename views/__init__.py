@@ -1,3 +1,3 @@
-from views.main_menu import MainMenu
+from views.main_menu import MainMenu, SettingsMenu
 
-__all__ = ["MainMenu"]
+__all__ = ["MainMenu", "SettingsMenu"]

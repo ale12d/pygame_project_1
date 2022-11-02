@@ -8,10 +8,10 @@ class MainMenu:
     def display(self, screen):
         play_button = MainMenu.button(self, screen, (25, 300), "play")
         load_button = MainMenu.button(self, screen, (225, 300), "load")
-        option_button = MainMenu.button(self, screen, (425, 300), "option")
+        settings_button = MainMenu.button(self, screen, (425, 300), "settings")
         quit_button = MainMenu.button(self, screen, (625, 300), "quit")
 
-        return play_button, load_button, option_button, quit_button
+        return play_button, load_button, settings_button, quit_button
 
     def button(self, screen, position, text):
         font = pygame.font.SysFont("Arial", 50)
@@ -24,3 +24,18 @@ class MainMenu:
         pygame.draw.line(screen, (50, 50, 50), (x + w, y + h), [x + w, y], 5)
         pygame.draw.rect(screen, (100, 100, 100), (x, y, w, h))
         return screen.blit(text_render, (x, y))
+
+
+class LoadMenu:
+    def __init__(self):
+        pass
+
+
+class SettingsMenu:
+    def __init__(self):
+        pass
+
+    def display(self, screen):
+        resolution_button = MainMenu.button(self, screen, (25, 100), "resolution")
+
+        return resolution_button

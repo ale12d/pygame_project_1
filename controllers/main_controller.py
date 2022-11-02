@@ -1,7 +1,6 @@
 import pygame
 from sys import exit
 from controllers.main_menu import MainMenuController
-from controllers.device import Mouse
 
 FRAMERATE = 60
 

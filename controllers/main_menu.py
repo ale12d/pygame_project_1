@@ -1,5 +1,5 @@
-from views import MainMenu
-from controllers.device import Mouse
+from views import MainMenu, SettingsMenu
+from controllers.device import Mouse, Keyboard
 import pygame
 
 
@@ -11,8 +11,11 @@ class MainMenuController:
         mx, my = pygame.mouse.get_pos()
         mouse = Mouse(self.event)
 
+        keyboard = Keyboard(self.event)
+        keyboard.arrow_keys()
+
         main_menu = MainMenu()
-        play_button, load_button, option_button, quit_button = main_menu.display(screen)
+        play_button, load_button, settings_button, quit_button = main_menu.display(screen)
 
         if play_button.collidepoint((mx, my)):
             click = mouse.click_check()
@@ -22,10 +25,10 @@ class MainMenuController:
             click = mouse.click_check()
             if click:
                 MainMenuController.load(self)
-        if option_button.collidepoint((mx, my)):
+        if settings_button.collidepoint((mx, my)):
             click = mouse.click_check()
             if click:
-                MainMenuController.option(self)
+                MainMenuController.settings(self, screen)
         if quit_button.collidepoint((mx, my)):
             click = mouse.click_check()
             if click:
@@ -37,8 +40,9 @@ class MainMenuController:
     def load(self):
         pass
 
-    def option(self):
-        pass
+    def settings(self, screen):
+        settings = SettingsMenu()
+        settings.display(screen)
 
     def quit(self):
         pygame.quit()
