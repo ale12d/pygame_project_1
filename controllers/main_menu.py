@@ -15,7 +15,7 @@ class MainMenuController:
         keyboard.arrow_keys()
 
         main_menu = MainMenu()
-        play_button, load_button, settings_button, quit_button = main_menu.display(screen)
+        play_button, load_button, settings_button, exit_button = main_menu.display(screen)
 
         if play_button.collidepoint((mx, my)):
             click = mouse.click_check()
@@ -29,7 +29,7 @@ class MainMenuController:
             click = mouse.click_check()
             if click:
                 MainMenuController.settings(self, screen)
-        if quit_button.collidepoint((mx, my)):
+        if exit_button.collidepoint((mx, my)):
             click = mouse.click_check()
             if click:
                 MainMenuController.quit(self)

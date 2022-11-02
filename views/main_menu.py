@@ -6,12 +6,16 @@ class MainMenu:
         pass
 
     def display(self, screen):
-        play_button = MainMenu.button(self, screen, (25, 300), "play")
-        load_button = MainMenu.button(self, screen, (225, 300), "load")
-        settings_button = MainMenu.button(self, screen, (425, 300), "settings")
-        quit_button = MainMenu.button(self, screen, (625, 300), "quit")
+        play_img = pygame.image.load('medias/play_btn.png').convert_alpha()
+        load_img = pygame.image.load('medias/load_btn.png').convert_alpha()
+        settings_img = pygame.image.load('medias/settings_btn.png').convert_alpha()
+        exit_img = pygame.image.load('medias/exit_btn.png').convert_alpha()
+        play_button = MainMenu.button2(self, screen, (25, 600), play_img)
+        load_button = MainMenu.button2(self, screen, (325, 600), load_img)
+        settings_button = MainMenu.button2(self, screen, (625, 600), settings_img)
+        exit_button = MainMenu.button2(self, screen, (1100, 600), exit_img)
 
-        return play_button, load_button, settings_button, quit_button
+        return play_button, load_button, settings_button, exit_button
 
     def button(self, screen, position, text):
         font = pygame.font.SysFont("Arial", 50)
@@ -25,6 +29,13 @@ class MainMenu:
         pygame.draw.rect(screen, (100, 100, 100), (x, y, w, h))
         return screen.blit(text_render, (x, y))
 
+    def button2(self, screen, position, img):
+        width = img.get_width()
+        height = img.get_height()
+        img = pygame.transform.scale(img, (int(width), int(height)))
+        rect = img.get_rect()
+        rect.topleft = position
+        return screen.blit(img, (rect.x, rect.y))
 
 class LoadMenu:
     def __init__(self):
