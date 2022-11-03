@@ -9,23 +9,22 @@ class ApplicationController:
 
     def __init__(self):
         self.app_name = 'app'
+        self.in_settings = False
 
     def start(self):
         pygame.init()
-        screen = pygame.display.set_mode((1152, 648), pygame.RESIZABLE)
+        screen = pygame.display.set_mode((1152, 648))
         pygame.display.set_caption(self.app_name)
 
         while True:
             for self.event in pygame.event.get():
                 ApplicationController.quit(self, self.event)
-                if self.event.type == pygame.VIDEORESIZE:
-                    screen = pygame.display.set_mode((self.event.w, self.event.h), pygame.RESIZABLE)
 
             clock = Clock()
             clock.set_framerate(FRAMERATE)
 
-            main_menu = MainMenuController(self.event)
-            main_menu.setup_view(screen)
+            main_menu = MainMenuController(self.event, self.in_settings)
+            self.in_settings = main_menu.setup_view(screen)
 
             pygame.display.update()
 

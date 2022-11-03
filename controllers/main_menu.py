@@ -4,8 +4,9 @@ import pygame
 
 
 class MainMenuController:
-    def __init__(self, event):
+    def __init__(self, event, in_settings):
         self.event = event
+        self.in_settings = in_settings
 
     def setup_view(self, screen):
         mx, my = pygame.mouse.get_pos()
@@ -25,14 +26,16 @@ class MainMenuController:
             click = mouse.click_check()
             if click:
                 MainMenuController.load(self)
-        if settings_button.collidepoint((mx, my)):
+        if settings_button.collidepoint((mx, my)) or self.in_settings:
             click = mouse.click_check()
-            if click:
-                MainMenuController.settings(self, screen)
+            if click or self.in_settings:
+                MainMenuController.settings(self, screen, mx, my, mouse)
         if exit_button.collidepoint((mx, my)):
             click = mouse.click_check()
             if click:
                 MainMenuController.quit(self)
+
+        return self.in_settings
 
     def play(self):
         pass
@@ -40,9 +43,20 @@ class MainMenuController:
     def load(self):
         pass
 
-    def settings(self, screen):
+    def settings(self, screen, mx, my, mouse):
+        self.in_settings = True
+
         settings = SettingsMenu()
-        settings.display(screen)
+        fullscreen_img_button, resolution_1_button = settings.display(screen)
+
+        if fullscreen_img_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        if resolution_1_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                pygame.display.set_mode((1152, 648))
 
     def quit(self):
         pygame.quit()

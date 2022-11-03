@@ -46,6 +46,9 @@ class SettingsMenu:
         pass
 
     def display(self, screen):
-        resolution_button = MainMenu.button(self, screen, (25, 100), "resolution")
+        fullscreen_img = pygame.image.load('medias/settings_fullscreen_btn.png').convert_alpha()
+        resolution_1_img = pygame.image.load('medias/settings_resolution_1_btn.png').convert_alpha()
+        fullscreen_img_button = MainMenu.button(self, screen, (-40, 0), fullscreen_img)
+        resolution_1_button = MainMenu.button(self, screen, (-40, 300), resolution_1_img)
 
-        return resolution_button
+        return fullscreen_img_button, resolution_1_button
