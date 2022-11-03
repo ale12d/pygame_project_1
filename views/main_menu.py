@@ -6,30 +6,29 @@ class MainMenu:
         pass
 
     def display(self, screen):
+        screen_width = screen.get_width()
+        screen_height = screen.get_height()
+
+        screen.fill((48, 96, 130))
         play_img = pygame.image.load('medias/play_btn.png').convert_alpha()
         load_img = pygame.image.load('medias/load_btn.png').convert_alpha()
         settings_img = pygame.image.load('medias/settings_btn.png').convert_alpha()
         exit_img = pygame.image.load('medias/exit_btn.png').convert_alpha()
-        play_button = MainMenu.button2(self, screen, (25, 600), play_img)
-        load_button = MainMenu.button2(self, screen, (325, 600), load_img)
-        settings_button = MainMenu.button2(self, screen, (625, 600), settings_img)
-        exit_button = MainMenu.button2(self, screen, (1100, 600), exit_img)
+
+        rx = screen_width / 1152
+        play_img = pygame.transform.scale(play_img, (int(play_img.get_width() * rx), int(play_img.get_height() * rx)))
+        load_img = pygame.transform.scale(load_img, (int(load_img.get_width() * rx), int(load_img.get_height() * rx)))
+        settings_img = pygame.transform.scale(settings_img, (int(settings_img.get_width() * rx), int(settings_img.get_height() * rx)))
+        exit_img = pygame.transform.scale(exit_img, (int(exit_img.get_width() * rx), int(exit_img.get_height() * rx)))
+
+        play_button = MainMenu.button(self, screen, (0, screen_height-play_img.get_height()), play_img)
+        load_button = MainMenu.button(self, screen, (play_img.get_width()+13, screen_height-play_img.get_height()), load_img)
+        settings_button = MainMenu.button(self, screen, ((screen_width-exit_img.get_width()-settings_img.get_width()-11), screen_height-play_img.get_height()), settings_img)
+        exit_button = MainMenu.button(self, screen, ((screen_width-exit_img.get_width()), screen_height-play_img.get_height()), exit_img)
 
         return play_button, load_button, settings_button, exit_button
 
-    def button(self, screen, position, text):
-        font = pygame.font.SysFont("Arial", 50)
-        text_render = font.render(text, 1, (255, 0, 0))
-        x, y, w, h = text_render.get_rect()
-        x, y = position
-        pygame.draw.line(screen, (150, 150, 150), (x, y), (x + w, y), 5)
-        pygame.draw.line(screen, (150, 150, 150), (x, y - 2), (x, y + h), 5)
-        pygame.draw.line(screen, (50, 50, 50), (x, y + h), (x + w, y + h), 5)
-        pygame.draw.line(screen, (50, 50, 50), (x + w, y + h), [x + w, y], 5)
-        pygame.draw.rect(screen, (100, 100, 100), (x, y, w, h))
-        return screen.blit(text_render, (x, y))
-
-    def button2(self, screen, position, img):
+    def button(self, screen, position, img):
         width = img.get_width()
         height = img.get_height()
         img = pygame.transform.scale(img, (int(width), int(height)))
