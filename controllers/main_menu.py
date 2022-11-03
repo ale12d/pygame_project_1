@@ -15,27 +15,31 @@ class MainMenuController:
         keyboard = Keyboard(self.event)
         keyboard.arrow_keys()
 
-        main_menu = MainMenu()
-        play_button, load_button, settings_button, exit_button = main_menu.display(screen)
+        if self.in_settings is False:
+            main_menu = MainMenu()
+            play_button, load_button, settings_button, exit_button = main_menu.display(screen)
 
-        if play_button.collidepoint((mx, my)):
-            click = mouse.click_check()
-            if click:
-                MainMenuController.play(self)
-        if load_button.collidepoint((mx, my)):
-            click = mouse.click_check()
-            if click:
-                MainMenuController.load(self)
-        if settings_button.collidepoint((mx, my)) or self.in_settings:
-            click = mouse.click_check()
-            if click or self.in_settings:
-                MainMenuController.settings(self, screen, mx, my, mouse)
-        if exit_button.collidepoint((mx, my)):
-            click = mouse.click_check()
-            if click:
-                MainMenuController.quit(self)
+            if play_button.collidepoint((mx, my)):
+                click = mouse.click_check()
+                if click:
+                    MainMenuController.play(self)
+            if load_button.collidepoint((mx, my)):
+                click = mouse.click_check()
+                if click:
+                    MainMenuController.load(self)
+            if settings_button.collidepoint((mx, my)):
+                click = mouse.click_check()
+                if click:
+                    MainMenuController.settings(self, screen, mx, my, mouse)
+            if exit_button.collidepoint((mx, my)):
+                click = mouse.click_check()
+                if click:
+                    MainMenuController.quit(self)
 
-        return self.in_settings
+            return self.in_settings
+
+        else:
+            MainMenuController.settings(self, screen, mx, my, mouse)
 
     def play(self):
         pass

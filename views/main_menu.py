@@ -46,6 +46,7 @@ class SettingsMenu:
         pass
 
     def display(self, screen):
+        screen.fill((48, 96, 130))
         fullscreen_img = pygame.image.load('medias/settings_fullscreen_btn.png').convert_alpha()
         resolution_1_img = pygame.image.load('medias/settings_resolution_1_btn.png').convert_alpha()
         fullscreen_img_button = MainMenu.button(self, screen, (-40, 0), fullscreen_img)
