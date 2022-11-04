@@ -45,8 +45,8 @@ class MainMenuController:
         self.in_load = False
         self.in_play = False
 
-        settings = SettingsMenu()
-        fullscreen_img_button, resolution_1_button = settings.display(screen)
+        settings = SettingsMenu(self.fullscreen)
+        fullscreen_img_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button = settings.display(screen)
 
         if fullscreen_img_button.collidepoint((mx, my)):
             click = mouse.click_check()
@@ -55,13 +55,38 @@ class MainMenuController:
                     pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
                     self.fullscreen = True
                 else:
-                    pygame.display.set_mode((1152, 648))
+                    pygame.display.set_mode((800, 600))
                     self.fullscreen = False
 
         if resolution_1_button.collidepoint((mx, my)):
             click = mouse.click_check()
             if click:
+                pygame.display.set_mode((800, 600))
+                self.fullscreen = False
+
+        if resolution_2_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                pygame.display.set_mode((1024, 768))
+                self.fullscreen = False
+
+        if resolution_3_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
                 pygame.display.set_mode((1152, 648))
+                self.fullscreen = False
+
+        if resolution_4_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                pygame.display.set_mode((1366, 768))
+                self.fullscreen = False
+
+        if resolution_5_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                pygame.display.set_mode((1920, 1080))
+                self.fullscreen = False
 
         main_menu = MainMenu()
         main_menu.display(screen)

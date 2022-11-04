@@ -57,28 +57,67 @@ class LoadMenu:
     def display(self,screen):
         screen.fill((48, 96, 130))
         screen_width = screen.get_width()
+        screen_height = screen.get_height()
         rx = screen_width / 120
+        ry = screen_height / 120
         load_bar = pygame.image.load('medias/load_bar.png').convert_alpha()
         load_bar = pygame.transform.scale(load_bar, (int(load_bar.get_width() * rx), int(load_bar.get_height() * rx)))
         screen.blit(load_bar, (0, 0))
 
 
 class SettingsMenu:
-    def __init__(self):
-        pass
+    def __init__(self, fullscreen):
+        self.fullscreen = fullscreen
 
     def display(self, screen):
         screen.fill((244, 194, 61))
         screen_width = screen.get_width()
         rx = screen_width / 120
+        rx_resolution = screen_width / 200
+
         settings_bar = pygame.image.load('medias/settings_bar.png').convert_alpha()
-
         settings_bar = pygame.transform.scale(settings_bar, (int(settings_bar.get_width() * rx), int(settings_bar.get_height() * rx)))
+
+        resolution_img = pygame.image.load('medias/resolution.png').convert_alpha()
+        resolution_img = pygame.transform.scale(resolution_img, (int(resolution_img.get_width() * rx), int(resolution_img.get_height() * rx)))
+
+        other_img = pygame.image.load('medias/other.png').convert_alpha()
+        other_img = pygame.transform.scale(other_img, (int(other_img.get_width() * rx), int(other_img.get_height() * rx)))
+
+
         screen.blit(settings_bar, (0, 0))
+        screen.blit(resolution_img, (2*rx, 10*rx))
+        screen.blit(other_img, (73.2*rx, 10*rx))
 
-        fullscreen_img = pygame.image.load('medias/settings_fullscreen_btn.png').convert_alpha()
-        resolution_1_img = pygame.image.load('medias/settings_resolution_1_btn.png').convert_alpha()
-        fullscreen_img_button = MainMenu.button(self, screen, (-40, 0), fullscreen_img)
+        if self.fullscreen:
+            fullscreen_img = pygame.image.load('medias/fullscreen_on_btn.png').convert_alpha()
+        else:
+            fullscreen_img = pygame.image.load('medias/fullscreen_btn.png').convert_alpha()
 
-        resolution_1_button = MainMenu.button(self, screen, (-40, 300), resolution_1_img)
-        return fullscreen_img_button, resolution_1_button
+        fullscreen_img = pygame.transform.scale(fullscreen_img, (int(fullscreen_img.get_width() * rx_resolution), int(fullscreen_img.get_height() * rx_resolution)))
+
+        resolution_1_img = pygame.image.load('medias/800x600_btn.png').convert_alpha()
+        resolution_1_img = pygame.transform.scale(resolution_1_img, (int(resolution_1_img.get_width() * rx_resolution), int(resolution_1_img.get_height() * rx_resolution)))
+
+        resolution_2_img = pygame.image.load('medias/1024x768_btn.png').convert_alpha()
+        resolution_2_img = pygame.transform.scale(resolution_2_img, (int(resolution_2_img.get_width() * rx_resolution), int(resolution_2_img.get_height() * rx_resolution)))
+
+        resolution_3_img = pygame.image.load('medias/1152x648_btn.png').convert_alpha()
+        resolution_3_img = pygame.transform.scale(resolution_3_img, (int(resolution_3_img.get_width() * rx_resolution), int(resolution_3_img.get_height() * rx_resolution)))
+
+        resolution_4_img = pygame.image.load('medias/1366x768_btn.png').convert_alpha()
+        resolution_4_img = pygame.transform.scale(resolution_4_img, (int(resolution_4_img.get_width() * rx_resolution), int(resolution_4_img.get_height() * rx_resolution)))
+
+        resolution_5_img = pygame.image.load('medias/1920x1080_btn.png').convert_alpha()
+        resolution_5_img = pygame.transform.scale(resolution_5_img, (int(resolution_5_img.get_width() * rx_resolution), int(resolution_5_img.get_height() * rx_resolution)))
+
+
+        fullscreen_button = MainMenu.button(self, screen, (82*rx, 20*rx), fullscreen_img)
+
+        resolution_1_button = MainMenu.button(self, screen, (12 * rx, 20 * rx), resolution_1_img)
+        resolution_2_button = MainMenu.button(self, screen, (12 * rx, 27 * rx), resolution_2_img)
+        resolution_3_button = MainMenu.button(self, screen, (12*rx, 34*rx), resolution_3_img)
+        resolution_4_button = MainMenu.button(self, screen, (12 * rx, 41 * rx), resolution_4_img)
+        resolution_5_button = MainMenu.button(self, screen, (12 * rx, 48 * rx), resolution_5_img)
+
+        return fullscreen_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button
