@@ -12,10 +12,12 @@ class ApplicationController:
         self.in_settings = False
         self.in_play = False
         self.in_load = False
+        self.fullscreen = False
 
     def start(self):
         pygame.init()
-        screen = pygame.display.set_mode((1920, 1080))
+        screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.fullscreen = True
         pygame.display.set_caption(self.app_name)
 
         while True:
@@ -25,8 +27,8 @@ class ApplicationController:
             clock = Clock()
             clock.set_framerate(FRAMERATE)
 
-            main_menu = MainMenuController(self.event, self.in_settings, self.in_play, self.in_load)
-            self.in_settings, self.in_play, self.in_load = main_menu.setup_view(screen)
+            main_menu = MainMenuController(self.event, self.in_settings, self.in_play, self.in_load, self.fullscreen)
+            self.in_settings, self.in_play, self.in_load, self.fullscreen = main_menu.setup_view(screen)
 
             pygame.display.update()
 

@@ -9,8 +9,6 @@ class MainMenu:
         screen_width = screen.get_width()
         screen_height = screen.get_height()
 
-
-        screen.fill((48, 96, 130))
         play_img = pygame.image.load('medias/play_btn.png').convert_alpha()
         load_img = pygame.image.load('medias/load_btn.png').convert_alpha()
         settings_img = pygame.image.load('medias/settings_btn.png').convert_alpha()
@@ -44,6 +42,7 @@ class PlayMenu:
         pass
 
     def display(self, screen):
+        screen.fill((92, 128, 55))
         screen_width = screen.get_width()
         rx = screen_width / 120
         play_bar = pygame.image.load('medias/play_bar.png').convert_alpha()
@@ -56,6 +55,7 @@ class LoadMenu:
         pass
 
     def display(self,screen):
+        screen.fill((48, 96, 130))
         screen_width = screen.get_width()
         rx = screen_width / 120
         load_bar = pygame.image.load('medias/load_bar.png').convert_alpha()
@@ -68,17 +68,17 @@ class SettingsMenu:
         pass
 
     def display(self, screen):
+        screen.fill((244, 194, 61))
         screen_width = screen.get_width()
         rx = screen_width / 120
         settings_bar = pygame.image.load('medias/settings_bar.png').convert_alpha()
 
         settings_bar = pygame.transform.scale(settings_bar, (int(settings_bar.get_width() * rx), int(settings_bar.get_height() * rx)))
+        screen.blit(settings_bar, (0, 0))
 
         fullscreen_img = pygame.image.load('medias/settings_fullscreen_btn.png').convert_alpha()
         resolution_1_img = pygame.image.load('medias/settings_resolution_1_btn.png').convert_alpha()
-
         fullscreen_img_button = MainMenu.button(self, screen, (-40, 0), fullscreen_img)
-        resolution_1_button = MainMenu.button(self, screen, (-40, 300), resolution_1_img)
 
-        screen.blit(settings_bar, (0, 0))
+        resolution_1_button = MainMenu.button(self, screen, (-40, 300), resolution_1_img)
         return fullscreen_img_button, resolution_1_button
