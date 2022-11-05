@@ -68,8 +68,9 @@ class LoadMenu:
 
 
 class SettingsMenu:
-    def __init__(self, fullscreen):
+    def __init__(self, fullscreen, sound_effect):
         self.fullscreen = fullscreen
+        self.sound_effect = sound_effect
 
     def display(self, screen):
         screen.fill((244, 194, 61))
@@ -89,7 +90,6 @@ class SettingsMenu:
         other_img = pygame.image.load('medias/other.png').convert_alpha()
         other_img = pygame.transform.scale(other_img, (int(other_img.get_width() * rx), int(other_img.get_height() * ry)))
 
-
         screen.blit(settings_bar, (0, 0))
         screen.blit(resolution_img, (2*rx, 10*ry))
         screen.blit(other_img, (73.2*rx, 10*ry))
@@ -99,7 +99,14 @@ class SettingsMenu:
         else:
             fullscreen_img = pygame.image.load('medias/fullscreen_btn.png').convert_alpha()
 
+        if self.sound_effect:
+            sound_effect_img = pygame.image.load('medias/sound_on_btn.png').convert_alpha()
+        else:
+            sound_effect_img = pygame.image.load('medias/sound_off_btn.png').convert_alpha()
+
         fullscreen_img = pygame.transform.scale(fullscreen_img, (int(fullscreen_img.get_width() * rx_resolution), int(fullscreen_img.get_height() * ry_resolution)))
+        sound_effect_img = pygame.transform.scale(sound_effect_img, (int(sound_effect_img.get_width() * rx_resolution), int(sound_effect_img.get_height() * ry_resolution)))
+
 
         resolution_1_img = pygame.image.load('medias/800x600_btn.png').convert_alpha()
         resolution_1_img = pygame.transform.scale(resolution_1_img, (int(resolution_1_img.get_width() * rx_resolution), int(resolution_1_img.get_height() * ry_resolution)))
@@ -116,8 +123,8 @@ class SettingsMenu:
         resolution_5_img = pygame.image.load('medias/1920x1080_btn.png').convert_alpha()
         resolution_5_img = pygame.transform.scale(resolution_5_img, (int(resolution_5_img.get_width() * rx_resolution), int(resolution_5_img.get_height() * ry_resolution)))
 
-
         fullscreen_button = MainMenu.button(self, screen, (82*rx, 20*ry), fullscreen_img)
+        sound_button = MainMenu.button(self, screen, (82*rx, 27*ry), sound_effect_img)
 
         resolution_1_button = MainMenu.button(self, screen, (12*rx, 20*ry), resolution_1_img)
         resolution_2_button = MainMenu.button(self, screen, (12*rx, 27*ry), resolution_2_img)
@@ -125,4 +132,4 @@ class SettingsMenu:
         resolution_4_button = MainMenu.button(self, screen, (12*rx, 41*ry), resolution_4_img)
         resolution_5_button = MainMenu.button(self, screen, (12*rx, 48*ry), resolution_5_img)
 
-        return fullscreen_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button
+        return fullscreen_button, sound_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button

@@ -4,19 +4,20 @@ import pygame
 
 
 class MainMenuController:
-    def __init__(self, event, in_settings, in_play, in_load, fullscreen):
+    def __init__(self, event, in_settings, in_play, in_load, fullscreen, sound_effect):
         self.event = event
         self.in_settings = in_settings
         self.in_play = in_play
         self.in_load = in_load
         self.fullscreen = fullscreen
+        self.sound_effect = sound_effect
 
 
     def setup_view(self, screen):
 
-        self.in_settings, self.in_play, self.in_load, self.fullscreen = MainMenuController.menu_buttons(self, screen)
+        self.in_settings, self.in_play, self.in_load, self.fullscreen, self.sound_effect = MainMenuController.menu_buttons(self, screen)
 
-        return self.in_settings, self.in_play, self.in_load, self.fullscreen
+        return self.in_settings, self.in_play, self.in_load, self.fullscreen, self.sound_effect
 
     def play(self, screen, mx, my, mouse):
         self.in_play = True
@@ -45,8 +46,8 @@ class MainMenuController:
         self.in_load = False
         self.in_play = False
 
-        settings = SettingsMenu(self.fullscreen)
-        fullscreen_img_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button = settings.display(screen)
+        settings = SettingsMenu(self.fullscreen, self.sound_effect)
+        fullscreen_img_button, sound_img_button, resolution_1_button, resolution_2_button, resolution_3_button, resolution_4_button, resolution_5_button = settings.display(screen)
 
         if fullscreen_img_button.collidepoint((mx, my)):
             click = mouse.click_check()
@@ -57,6 +58,16 @@ class MainMenuController:
                 else:
                     pygame.display.set_mode((800, 600))
                     self.fullscreen = False
+
+        if sound_img_button.collidepoint((mx, my)):
+            click = mouse.click_check()
+            if click:
+                if not self.sound_effect:
+                    print('sound on')
+                    self.sound_effect = True
+                else:
+                    print('sound off')
+                    self.sound_effect = False
 
         if resolution_1_button.collidepoint((mx, my)):
             click = mouse.click_check()
@@ -103,7 +114,7 @@ class MainMenuController:
         keyboard = Keyboard(self.event)
         keyboard.arrow_keys()
 
-        sound = Sound()
+        sound = Sound(self.sound_effect)
 
         main_menu = MainMenu()
         play_button, load_button, settings_button, exit_button = main_menu.display(screen)
@@ -134,12 +145,14 @@ class MainMenuController:
             if click:
                 MainMenuController.quit(self)
 
-        return self.in_settings, self.in_play, self.in_load, self.fullscreen
+        return self.in_settings, self.in_play, self.in_load, self.fullscreen, self.sound_effect
+
 
 class Sound:
-    def __int__(self):
-        pass
+    def __init__(self, sound_effect):
+        self.sound_effect = sound_effect
 
     def click_sound(self):
-        click_sound = pygame.mixer.Sound("sounds/click_sound.wav")
-        pygame.mixer.Sound.play(click_sound)
+        if self.sound_effect:
+            click_sound = pygame.mixer.Sound("sounds/click_sound.wav")
+            pygame.mixer.Sound.play(click_sound)
