@@ -1,34 +1,23 @@
-import pygame
-from main_menu.buttons import Play, Load, Settings, Exit
+from main_menu.buttons_main import Button
+from scales import Scale
 
 
 class MainView:
     def __init__(self, screen):
         self.screen = screen
 
-    def set(self):
-
-        buttons = self.create_main_buttons()
-        return buttons
-
     def create_main_buttons(self):
-        play_button = Play(self.screen)
-        load_button = Load(self.screen)
-        settings_button = Settings(self.screen)
-        exit_button = Exit(self.screen)
+        button = Button(self.screen)
+        scale = Scale(self.screen)
+        rx, ry = scale.big()
+        play_button = button.main_menu('medias/play_btn.png', (10, 1), (rx, ry))
+        load_button = button.main_menu('medias/load_btn.png', (32, 1), (rx, ry))
+        settings_button = button.main_menu('medias/settings_btn.png', (55, 1), (rx, ry))
+        exit_button = button.main_menu('medias/exit_btn.png', (91, 1), (rx, ry))
 
         buttons_list = [play_button, load_button, settings_button, exit_button]
-        buttons_name = ["play_button", "load_button", "settings_button", "exit_button"]
-        buttons_formated = {}
-        for i in range(len(buttons_list)):
 
-            img, position = buttons_list[i].set()
-            buttons_formated[buttons_name[i]] = self.show(img, position)
-
-        return buttons_formated
-
-    def show(self, img, position):
-        return self.screen.blit(img, position)
+        return buttons_list
 
 
 class PlayView:
@@ -48,9 +37,27 @@ class LoadView:
 
 
 class SettingsView:
-    def __init__(self):
-        pass
+    def __init__(self, screen):
+        self.screen = screen
 
-    def set(self):
-        pass
+    def create_main_buttons(self):
+        button = Button(self.screen)
+        scale = Scale(self.screen)
+        rx, ry = scale.medium()
+        rxb, ryb = scale.big()
 
+        button.main_menu('medias/resolution.png', (2, 48), (rxb, ryb))
+        button.main_menu('medias/other.png', (73, 48), (rxb, ryb))
+
+        resolution1 = button.main_menu('medias/800x600_btn.png', (12, 41), (rx, ry))
+        resolution2 = button.main_menu('medias/1024x768_btn.png', (12, 34), (rx, ry))
+        resolution3 = button.main_menu('medias/1152x648_btn.png', (12, 27), (rx, ry))
+        resolution4 = button.main_menu('medias/1366x768_btn.png', (12, 20), (rx, ry))
+        resolution5 = button.main_menu('medias/1920x1080_btn.png', (12, 13), (rx, ry))
+
+        fullscreen = button.main_menu('medias/fullscreen_btn.png', (82, 41), (rx, ry))
+        sound = button.main_menu('medias/sound_on_btn.png', (82, 34), (rx, ry))
+
+        buttons_list = [resolution1, resolution2, resolution3, resolution4, resolution5, fullscreen, sound]
+
+        return buttons_list
