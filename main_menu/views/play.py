@@ -1,4 +1,4 @@
-from main_menu.buttons_main import Button
+from main_menu.buttons import Button
 from scales import Scale
 
 
