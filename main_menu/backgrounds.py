@@ -1,6 +1,6 @@
 import pygame
 from scales import Scale
-from main_menu.views import MainView
+from main_menu.views.home import MainView
 
 
 class Backgrounds:
